@@ -1,6 +1,17 @@
-FROM eclipse-temurin:17-jdk
+FROM eclipse-temurin:17-jdk-jammy
+
 WORKDIR /app
-COPY .
+
+COPY pom.xml .
+COPY mvnw .
+COPY .mvn .mvn
+
+RUN ./mvnw dependency:go-offline
+
+COPY src src
+
 RUN ./mvnw clean package -DskipTests
+
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","target/*.jar"]
+
+CMD ["java", "-jar", "target/*.jar"]
