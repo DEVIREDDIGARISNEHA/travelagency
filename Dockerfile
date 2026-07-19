@@ -2,13 +2,12 @@ FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
 
-COPY pom.xml .
-COPY mvnw .
-COPY .mvn .mvn
+COPY travelagency/pom.xml travelagency/
+COPY travelagency/mvnw travelagency/
+COPY travelagency/.mvn travelagency/.mvn
+COPY travelagency/src travelagency/src
 
-RUN ./mvnw dependency:go-offline
-
-COPY src src
+WORKDIR /app/travelagency
 
 RUN ./mvnw clean package -DskipTests
 
