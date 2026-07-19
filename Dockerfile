@@ -1,10 +1,16 @@
 FROM eclipse-temurin:17-jdk-jammy
+
 WORKDIR /app
-COPY travelagency/ .
 
-# Iddi line add chey
-RUN chmod +x mvnw
+# Copy everything
+COPY .
 
-RUN ./mvnw clean package -DskipTests
+# Give permission and build
+RUN chmod +x ./mvnw && ./mvnw clean package -DskipTests
+
+# Find the jar and rename
+RUN cp target/*.jar app.jar
+
 EXPOSE 8080
-CMD ["java", "-jar", "target/*.jar"]
+
+CMD ["java", "-jar", "app.jar"]
