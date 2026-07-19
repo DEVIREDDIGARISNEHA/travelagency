@@ -1,9 +1,9 @@
 FROM eclipse-temurin:17-jdk-jammy
 
 WORKDIR /app
-COPY .
+COPY . .
 
-RUN chmod +x mvnw
+RUN chmod +x ./mvnw
 RUN ./mvnw clean package -DskipTests
 
 RUN mv target/*.jar app.jar
